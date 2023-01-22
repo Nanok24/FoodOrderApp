@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import classes from "./Checkout.module.css";
 
 const isEmpty = (value) => value.trim() === "";
-const lessThanFive = (value) => value.trim().length !== 5;
+const lessThanFive = (value) => value.trim().length < 5;
 
 const Checkout = (props) => {
   const [formInputsValidity, setFormInputsValidity] = useState({
@@ -46,7 +46,13 @@ const Checkout = (props) => {
     if (!formIsValid) {
       return;
     }
-    //submit cart data
+
+    props.onConfirm({
+      name: enteredName,
+      street: enteredStreet,
+      city: enteredCity,
+      postalCode: enteredPostal,
+    });
   };
 
   const nameControlClasses = `${classes.control} ${
